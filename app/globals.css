@@ -3,12 +3,33 @@
 /* `ar:` styles apply only on Arabic pages (e.g. looser line-height for Naskh). */
 @custom-variant ar (&:lang(ar));
 
+/* `dark:` follows an explicit choice (data-theme on <html>) or, if none, the OS setting. */
+@custom-variant dark {
+  &:where([data-theme="dark"], [data-theme="dark"] *) {
+    @slot;
+  }
+  @media (prefers-color-scheme: dark) {
+    &:where(:root:not([data-theme="light"]), :root:not([data-theme="light"]) *) {
+      @slot;
+    }
+  }
+}
+
 /* ------------------------------------------------------------------
    Design tokens
    Warm, earthy palette: limestone cream, olive, terracotta, ink.
-   All text pairings meet WCAG AA (body text ≥ 4.5:1).
+   All text pairings meet WCAG AA (body text ≥ 4.5:1) in both themes.
+
+   Most tokens are *themed*: their names describe their role in light mode
+   (cream = page, parchment = raised surface, ink = text, umber = muted
+   text) and they are remapped for dark mode below.
+   `chalk` and `night` are fixed and used by sections that stay dark in
+   both themes (footer, call-to-action band).
 ------------------------------------------------------------------- */
 @theme {
+  --color-chalk: #f8f4ed;
+  --color-night: #231d17;
+
   --color-cream: #f8f4ed;
   --color-parchment: #f0e8db;
   --color-sand: #e2d6c3;
@@ -55,6 +76,7 @@
 }
 
 :root {
+  color-scheme: light;
   --font-heading: var(--font-cormorant), "Iowan Old Style", Georgia, serif;
   --font-body: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
   --header-height: 4.5rem;
@@ -63,6 +85,38 @@
 :root:lang(ar) {
   --font-heading: var(--font-amiri), "Geeza Pro", "Noto Naskh Arabic", serif;
   --font-body: var(--font-plex-arabic), var(--font-manrope), "Geeza Pro", Tahoma, sans-serif;
+}
+
+/* Dark palette — warm charcoal rather than pure black, so the food
+   photography and terracotta accents keep their warmth. */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --color-cream: #16120e;
+  --color-parchment: #1f1a15;
+  --color-sand: #2b241d;
+  --color-stone: #5a4f43;
+  --color-umber: #b5a792;
+  --color-ink: #f1eadf;
+  --color-ink-soft: #e2d9cb;
+  --color-olive: #5f6c35;
+  --color-terracotta: #df8a64;
+  --color-terracotta-dark: #eba584;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --color-cream: #16120e;
+    --color-parchment: #1f1a15;
+    --color-sand: #2b241d;
+    --color-stone: #5a4f43;
+    --color-umber: #b5a792;
+    --color-ink: #f1eadf;
+    --color-ink-soft: #e2d9cb;
+    --color-olive: #5f6c35;
+    --color-terracotta: #df8a64;
+    --color-terracotta-dark: #eba584;
+  }
 }
 
 /* ------------------------------------------------------------------
@@ -83,6 +137,7 @@
 
   body {
     background-color: var(--color-cream);
+    transition: background-color 0.3s ease, color 0.3s ease;
     color: var(--color-ink);
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;

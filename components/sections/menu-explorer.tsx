@@ -38,7 +38,7 @@ export function MenuExplorer({ categories, items, labels }: MenuExplorerProps) {
               aria-pressed={active === filter.id}
               aria-controls="menu-categories"
               onClick={() => setActive(filter.id)}
-              className="min-h-11 shrink-0 rounded-full border border-ink/15 px-5 text-sm font-medium whitespace-nowrap text-umber transition-colors duration-300 hover:border-ink/40 hover:text-ink aria-pressed:border-olive aria-pressed:bg-olive aria-pressed:text-cream"
+              className="min-h-11 shrink-0 rounded-full border border-ink/15 px-5 text-sm font-medium whitespace-nowrap text-umber transition-colors duration-300 hover:border-ink/40 hover:text-ink aria-pressed:border-olive aria-pressed:bg-olive aria-pressed:text-chalk"
             >
               {filter.name}
             </button>

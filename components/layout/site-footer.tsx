@@ -17,11 +17,11 @@ export async function SiteFooter({ locale }: { locale: Locale }) {
   const year = new Intl.NumberFormat(localeMeta[locale].intl, { useGrouping: false }).format(await getCurrentYear());
 
   return (
-    <footer className="bg-ink text-cream">
+    <footer className="bg-night text-chalk dark:border-t dark:border-chalk/10">
       <Container className="grid gap-12 py-16 sm:py-20 md:grid-cols-2 lg:grid-cols-12 lg:gap-10">
         <div className="flex flex-col gap-6 lg:col-span-4">
           <Logo locale={locale} tone="light" label={`${dict.meta.siteName} — ${dict.nav.home}`} />
-          <p className="max-w-sm leading-relaxed text-cream/75">{dict.footer.description}</p>
+          <p className="max-w-sm leading-relaxed text-chalk/75">{dict.footer.description}</p>
           <SocialLinks tone="light" newTabLabel={dict.common.opensInNewTab} />
         </div>
 
@@ -32,7 +32,7 @@ export async function SiteFooter({ locale }: { locale: Locale }) {
               <li key={route}>
                 <Link
                   href={localePath(locale, route)}
-                  className="inline-flex min-h-10 items-center text-cream/85 transition-colors hover:text-saffron"
+                  className="inline-flex min-h-10 items-center text-chalk/85 transition-colors hover:text-saffron"
                 >
                   {dict.nav[route]}
                 </Link>
@@ -43,7 +43,7 @@ export async function SiteFooter({ locale }: { locale: Locale }) {
 
         <div className="lg:col-span-3">
           <h2 className="eyebrow text-saffron!">{dict.footer.visit}</h2>
-          <ul className="mt-5 flex flex-col gap-4 text-cream/85">
+          <ul className="mt-5 flex flex-col gap-4 text-chalk/85">
             <li>
               <a href={links.maps} target="_blank" rel="noopener noreferrer" className="flex gap-3 transition-colors hover:text-saffron">
                 <MapPin className="mt-1 size-4 shrink-0 text-saffron" aria-hidden="true" />
@@ -76,8 +76,8 @@ export async function SiteFooter({ locale }: { locale: Locale }) {
         </div>
       </Container>
 
-      <div className="border-t border-cream/10">
-        <Container className="flex flex-col gap-2 py-6 text-sm text-cream/60 sm:flex-row sm:items-center sm:justify-between">
+      <div className="border-t border-chalk/10">
+        <Container className="flex flex-col gap-2 py-6 text-sm text-chalk/60 sm:flex-row sm:items-center sm:justify-between">
           <p>
             © {year} {restaurant.name[locale]}. {dict.footer.rights}
           </p>

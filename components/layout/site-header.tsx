@@ -7,6 +7,7 @@ import { Container } from "@/components/ui/container";
 import { Logo } from "@/components/ui/logo";
 import { LanguageSwitcher } from "./language-switcher";
 import { MobileNav, type NavItem } from "./mobile-nav";
+import { ThemeToggle } from "./theme-toggle";
 
 interface SiteHeaderProps {
   locale: Locale;
@@ -46,6 +47,7 @@ export async function SiteHeader({ locale, current }: SiteHeaderProps) {
         </nav>
 
         <div className="flex items-center gap-2">
+          <ThemeToggle label={dict.common.darkMode} className="hidden sm:inline-flex" />
           <LanguageSwitcher
             href={localePath(target, current ?? "home")}
             targetLocale={target}
@@ -57,7 +59,9 @@ export async function SiteHeader({ locale, current }: SiteHeaderProps) {
             openLabel={dict.common.openMenu}
             closeLabel={dict.common.closeMenu}
             navLabel={dict.common.primaryNav}
-          />
+          >
+            <ThemeToggle label={dict.common.darkMode} variant="row" className="sm:hidden" />
+          </MobileNav>
         </div>
       </Container>
     </header>

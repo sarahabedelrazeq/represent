@@ -8,7 +8,7 @@ interface MenuItemRowProps {
 
 const tagStyles: Record<DietaryTag, string> = {
   signature: "bg-terracotta/10 text-terracotta-dark",
-  vegetarian: "bg-olive/10 text-olive-dark",
+  vegetarian: "bg-olive/10 text-olive-dark dark:bg-olive/30 dark:text-[#cdd6a3]",
   spicy: "bg-saffron/20 text-ink",
 };
 

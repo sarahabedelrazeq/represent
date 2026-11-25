@@ -22,8 +22,8 @@ export function SectionHeading({
   className = "",
 }: SectionHeadingProps) {
   const alignment = align === "center" ? "mx-auto text-center items-center" : "items-start text-start";
-  const titleColor = tone === "dark" ? "text-ink" : "text-cream";
-  const introColor = tone === "dark" ? "text-umber" : "text-cream/80";
+  const titleColor = tone === "dark" ? "text-ink" : "text-chalk";
+  const introColor = tone === "dark" ? "text-umber" : "text-chalk/80";
   const size = Heading === "h1" ? "text-5xl sm:text-6xl lg:text-7xl" : "text-4xl sm:text-5xl";
 
   return (

@@ -4,8 +4,8 @@ import { formatDays, formatTime } from "@/lib/format";
 import type { Locale } from "@/types";
 
 export function OpeningHours({ locale, dict, tone = "dark" }: { locale: Locale; dict: Dictionary; tone?: "dark" | "light" }) {
-  const muted = tone === "dark" ? "text-umber" : "text-cream/75";
-  const rule = tone === "dark" ? "border-ink/10" : "border-cream/15";
+  const muted = tone === "dark" ? "text-umber" : "text-chalk/75";
+  const rule = tone === "dark" ? "border-ink/10" : "border-chalk/15";
   return (
     <dl className="flex flex-col">
       {restaurant.openingHours.map((entry) => (

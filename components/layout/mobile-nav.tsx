@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useId, useRef, useState } from "react";
+import { useEffect, useId, useRef, useState, type ReactNode } from "react";
 import { Menu, X } from "lucide-react";
 
 export interface NavItem {
@@ -15,9 +15,11 @@ interface MobileNavProps {
   openLabel: string;
   closeLabel: string;
   navLabel: string;
+  /** Extra controls shown under the links (e.g. the theme switch). */
+  children?: ReactNode;
 }
 
-export function MobileNav({ items, openLabel, closeLabel, navLabel }: MobileNavProps) {
+export function MobileNav({ items, openLabel, closeLabel, navLabel, children }: MobileNavProps) {
   const [open, setOpen] = useState(false);
   const panelId = useId();
   const buttonRef = useRef<HTMLButtonElement>(null);
@@ -83,6 +85,7 @@ export function MobileNav({ items, openLabel, closeLabel, navLabel }: MobileNavP
             ))}
           </ul>
         </nav>
+        {children && <div className="border-b border-ink/10">{children}</div>}
       </div>
     </div>
   );

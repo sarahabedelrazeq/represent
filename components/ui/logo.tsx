@@ -5,7 +5,7 @@ import { localePath } from "@/lib/routes";
 
 /** Wordmark with a small arched-doorway monogram, echoing old Amman stone houses. */
 export function Logo({ locale, tone = "dark", label }: { locale: Locale; tone?: "dark" | "light"; label: string }) {
-  const color = tone === "dark" ? "text-ink" : "text-cream";
+  const color = tone === "dark" ? "text-ink" : "text-chalk";
   return (
     <Link
       href={localePath(locale, "home")}

@@ -5,7 +5,7 @@ export function SocialLinks({ newTabLabel, tone = "dark" }: { newTabLabel: strin
   const colors =
     tone === "dark"
       ? "border-ink/15 text-ink hover:bg-ink hover:text-cream"
-      : "border-cream/25 text-cream hover:bg-cream hover:text-ink";
+      : "border-chalk/25 text-chalk hover:bg-chalk hover:text-night";
   return (
     <ul className="flex flex-wrap gap-3">
       {restaurant.social.map((link) => (

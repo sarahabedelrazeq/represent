@@ -31,6 +31,7 @@ const en = {
     openMenu: "Open navigation menu",
     closeMenu: "Close navigation menu",
     switchLanguage: "Switch language to Arabic",
+    darkMode: "Dark mode",
     primaryNav: "Primary",
     footerNav: "Footer",
     opensInNewTab: "(opens in a new tab)",

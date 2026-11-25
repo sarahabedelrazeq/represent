@@ -7,6 +7,10 @@ import { siteUrl } from "@/lib/routes";
 import { restaurantJsonLd } from "@/lib/structured-data";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { JsonLd } from "@/components/ui/json-ld";
+import { THEME_STORAGE_KEY } from "@/lib/theme";
+
+/** Applies a saved theme before first paint. With no saved choice, CSS follows the OS setting. */
+const themeScript = `try{var t=localStorage.getItem("${THEME_STORAGE_KEY}");if(t==="dark"||t==="light")document.documentElement.dataset.theme=t}catch(e){}`;
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
@@ -25,8 +29,11 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export const viewport: Viewport = {
-  themeColor: "#f8f4ed",
-  colorScheme: "light",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#f8f4ed" },
+    { media: "(prefers-color-scheme: dark)", color: "#16120e" },
+  ],
+  colorScheme: "light dark",
 };
 
 export default async function LocaleLayout({ children }: LayoutProps<"/[locale]">) {
@@ -34,7 +41,15 @@ export default async function LocaleLayout({ children }: LayoutProps<"/[locale]"
   const dict = await getDictionary(locale);
 
   return (
-    <html lang={locale} dir={localeMeta[locale].dir} className={`${fontVariables[locale]} h-full`}>
+    <html
+      lang={locale}
+      dir={localeMeta[locale].dir}
+      className={`${fontVariables[locale]} h-full`}
+      suppressHydrationWarning
+    >
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+      </head>
       <body className="flex min-h-full flex-col">
         <a
           href="#main"

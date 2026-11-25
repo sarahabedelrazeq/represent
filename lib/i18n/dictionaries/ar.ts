@@ -33,6 +33,7 @@ const ar: Dictionary = {
     openMenu: "فتح قائمة التنقل",
     closeMenu: "إغلاق قائمة التنقل",
     switchLanguage: "تغيير اللغة إلى الإنجليزية",
+    darkMode: "الوضع الداكن",
     primaryNav: "التنقل الرئيسي",
     footerNav: "روابط التذييل",
     opensInNewTab: "(يفتح في نافذة جديدة)",
