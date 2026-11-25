@@ -1,36 +1,43 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Dar Samar — bilingual restaurant website
 
-## Getting Started
-
-First, run the development server:
+A fictional Levantine restaurant site built with Next.js 16 (App Router, Cache Components), TypeScript (strict), Tailwind CSS v4 and Lucide icons. English (LTR) and Arabic (RTL).
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev      # http://localhost:3000 → redirects to /en
+npm run build && npm start
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Set `NEXT_PUBLIC_SITE_URL` to the production origin. It is used for canonical URLs, hreflang, the sitemap and structured data.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Replacing the sample content
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| What | Where |
+| --- | --- |
+| Name, address, phone, WhatsApp, email, hours, socials, coordinates | `data/restaurant.ts` |
+| Menu categories and items (bilingual, prices in JOD) | `data/menu.ts` |
+| Photos and their bilingual alt text | `data/images.ts` + `public/images/` |
+| All UI copy and page metadata | `lib/i18n/dictionaries/en.ts`, `ar.ts` |
 
-## Learn More
+`ar.ts` is typed against `en.ts`, so a missing Arabic string fails the type check.
 
-To learn more about Next.js, take a look at the following resources:
+## Structure
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```
+app/[locale]/          root layout (html lang/dir, fonts), pages, localized 404
+app/sitemap.ts, robots.ts, manifest.ts, icon.svg, apple-icon.png
+proxy.ts               "/" and unprefixed paths → saved locale cookie, Accept-Language, then English
+components/layout/     header, footer, mobile nav (client), language switcher (client)
+components/sections/   page sections; menu-explorer is the only other client component
+components/ui/         small reusable primitives
+lib/                   i18n, routes, formatting, metadata, Schema.org JSON-LD
+types/                 shared types
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## How it works
 
-## Deploy on Vercel
+- **Routing:** locale-prefixed URLs (`/en/menu`, `/ar/menu`), all prerendered statically. The locale is read anywhere on the server via `next/root-params`.
+- **RTL:** layouts use logical utilities (`ms-`, `ps-`, `start-`, `end-`, `border-s`), directional icons flip with `rtl:-scale-x-100`, and an `ar:` variant handles Arabic typography (no letter-spacing, looser line-height). Each locale loads its own fonts: Cormorant and Manrope for English, Amiri and IBM Plex Sans Arabic for Arabic.
+- **SEO:** each page sets its own title and description, a canonical URL, hreflang links (including x-default), Open Graph and Twitter tags. Restaurant JSON-LD appears on every page and Menu JSON-LD on the menu page. The site also ships a sitemap with alternates, robots.txt and a web manifest.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Sample photos are from Unsplash.
