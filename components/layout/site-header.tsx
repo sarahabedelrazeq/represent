@@ -26,7 +26,9 @@ export async function SiteHeader({ locale, current }: SiteHeaderProps) {
   }));
 
   return (
-    <header className="sticky top-0 z-50 border-b border-ink/10 bg-cream/90 backdrop-blur-md supports-[backdrop-filter]:bg-cream/80">
+    // The frosted background lives on a pseudo-element: `backdrop-filter` on the header itself
+    // would make it the containing block for the mobile menu's `position: fixed` panel.
+    <header className="sticky top-0 z-50 border-b border-ink/10 before:absolute before:inset-0 before:-z-10 before:bg-cream/90 before:backdrop-blur-md supports-[backdrop-filter]:before:bg-cream/80">
       <Container className="flex h-(--header-height) items-center justify-between gap-4">
         <Logo locale={locale} label={`${dict.meta.siteName} — ${dict.nav.home}`} />
 
